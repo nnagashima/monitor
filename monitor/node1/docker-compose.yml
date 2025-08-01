@@ -5,8 +5,6 @@ services:
     command:
       - "-retentionPeriod=31"
       - "-storageNode=vm-vip:8400"
-    ports:
-      - "8480:8480"
     networks:
       - vm_net
     restart: always
@@ -17,8 +15,6 @@ services:
     command:
       - "-retentionPeriod=31"
       - "-storageNode=vm-vip:8400"
-    ports:
-      - "8481:8481"
     networks:
       - vm_net
     restart: always
