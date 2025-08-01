@@ -1,0 +1,55 @@
+global:
+  scrape_interval:     15s 
+  evaluation_interval: 15s
+  external_labels:
+      prometheus: "prom01"
+      prometheus_replica: "prom01"
+
+rule_files:
+  - /etc/prometheus/alert.rules
+
+alerting:
+  alertmanagers:
+    - scheme: http
+      static_configs:
+      - targets:
+        - 192.168.21.14:9093
+        - 192.168.21.15:9093
+  alert_relabel_configs:
+    - action: labeldrop
+      regex: prometheus_replica
+
+remote_write:
+  -  
+    url: "http://192.168.21.13:8480/insert/0/prometheus/"
+    queue_config:
+        max_samples_per_send: 1000
+        max_shards: 200
+        capacity: 2500
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+    file_sd_configs:
+      - refresh_interval: "5m"
+        files:
+          - /etc/prometheusscrape_configs/prometheus-tg.yml
+
+  - job_name: 'node_exporter'
+    file_sd_configs:
+      - refresh_interval: "5m"
+        files:
+          - /etc/prometheusscrape_configs/node-exporter-tg.yml
+
+  - job_name: 'k8s-prometheus'
+    scrape_interval: 15s
+    honor_labels: true
+    metrics_path: '/federate'
+    params:
+      'match[]':
+        - '{job=".+"}'
+        - '{__name__=~".+"}'
+    file_sd_configs:
+      - refresh_interval: "5m"
+        files:
+            - /etc/prometheus/scrape_configs/k8s_prometheus_tg.yml

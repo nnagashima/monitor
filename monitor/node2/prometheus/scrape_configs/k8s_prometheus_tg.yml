@@ -1,0 +1,4 @@
+- targets:
+  - '192.168.21.103:9090'
+  labels:
+    instance: k8s-prometheus

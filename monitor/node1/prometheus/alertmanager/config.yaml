@@ -1,0 +1,10 @@
+global:
+  slack_api_url: https://hooks.slack.com/services/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
+
+route:
+  receiver: 'slack'
+
+receivers:
+- name: 'slack'
+  webhook_configs:
+  - url: '#prometheus'
