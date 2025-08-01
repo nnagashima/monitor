@@ -1,8 +1,6 @@
-version: "3.9"
-
 services:
   vminsert:
-    image: victoriametrics/vminsert：latest
+    image: victoriametrics/vminsert:latest
     container_name: vminsert
     command:
       - "-retentionPeriod=31"
