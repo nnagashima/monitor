@@ -33,13 +33,7 @@ scrape_configs:
     file_sd_configs:
       - refresh_interval: "5m"
         files:
-          - /etc/prometheusscrape_configs/prometheus-tg.yml
-
-  - job_name: 'node_exporter'
-    file_sd_configs:
-      - refresh_interval: "5m"
-        files:
-          - /etc/prometheusscrape_configs/node-exporter-tg.yml
+            - /etc/prometheus/scrape_configs/prometheus-tg.yml
 
   - job_name: 'k8s-prometheus'
     scrape_interval: 15s

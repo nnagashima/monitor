@@ -1,9 +1,5 @@
 - targets: 
     - 192.168.21.14:9100
-  labels:
-    instance: monitor01
-
-- targets:
     - 192.168.21.15:9100
-  labels:
-    instance: monitor02
+    - 192.168.21.14:9090
+    - 192.168.21.15:9090

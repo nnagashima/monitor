@@ -84,8 +84,8 @@ services:
       - "--config.file=/etc/alertmanager/config.yaml"
       - "--web.listen-address=0.0.0.0:9093"
       - "--cluster.listen-address=0.0.0.0:9094"
-      - "--cluster.advertise-address=192.168.21.14:9094"
-      - "--cluster.peer=192.168.21.15:9094"
+      - "--cluster.advertise-address=192.168.21.15:9094"
+      - "--cluster.peer=192.168.21.14:9094"
     ports:
       - 9093:9093
     networks:

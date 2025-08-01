@@ -5,6 +5,7 @@ route:
   receiver: 'slack'
 
 receivers:
-- name: 'slack'
-  webhook_configs:
-  - url: '#prometheus'
+  - name: 'slack'
+    slack_configs:
+    - channel: '#prometheus'
+      send_resolved: true
