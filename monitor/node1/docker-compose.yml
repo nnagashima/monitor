@@ -3,7 +3,6 @@ services:
     image: victoriametrics/vminsert:latest
     container_name: vminsert
     command:
-      - "-retentionPeriod=31"
       - "-storageNode=vm-vip:8400"
     networks:
       - vm_net
@@ -13,7 +12,6 @@ services:
     image: victoriametrics/vmselect:latest
     container_name: vmselect
     command:
-      - "-retentionPeriod=31"
       - "-storageNode=vm-vip:8400"
     networks:
       - vm_net
@@ -46,15 +44,18 @@ services:
     restart: always
 
   keepalived:
-    image: osixia/keepalived:latest
+    image: osixia/keepalived:2.0.20
     container_name: keepalived
     network_mode: "host"
     cap_add:
       - NET_ADMIN
-    volumes:
-      - ./keepalived/keepalived.conf:/container/service/keepalived/assets/keepalived.conf
     environment:
       - KEEPALIVED_INTERFACE=eth0
+      - KEEPALIVED_STATE=BACKUP
+      - KEEPALIVED_ROUTER_ID=51
+      - KEEPALIVED_PRIORITY=100
+      - KEEPALIVED_PASSWORD=securepass
+      - KEEPALIVED_VIRTUAL_IPS=192.168.21.13
     restart: always
 
   prometheus:
